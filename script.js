@@ -215,22 +215,51 @@ document.addEventListener('DOMContentLoaded', () => {
         animateParticles();
     }
 
-    // 8. Contact Form Handling (Redirects to email client)
+    // 8. Formspree Contact Form Submission (AJAX)
     const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
+    const formStatus = document.getElementById('formStatus');
+    const submitBtn = document.getElementById('submitBtn');
 
-            // Construct mailto link to send email directly to jawad.shakeel2004@gmail.com
-            const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
-            window.location.href = `mailto:jawad.shakeel2004@gmail.com?subject=${subject}&body=${body}`;
-            
-            contactForm.reset();
+            // Show loading state
+            const originalBtnContent = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            if (formStatus) formStatus.className = 'form-status';
+
+            try {
+                const data = new FormData(contactForm);
+                const response = await fetch('https://formspree.io/f/mzepknpq', {
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    if (formStatus) {
+                        formStatus.className = 'form-status success';
+                        formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent directly to my inbox.';
+                    }
+                    contactForm.reset();
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Form submission failed');
+                }
+            } catch (err) {
+                console.error('Formspree submit error:', err);
+                if (formStatus) {
+                    formStatus.className = 'form-status error';
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Oops! There was a problem sending your message. Please email me directly at <a href="mailto:jawad.shakeel2004@gmail.com" style="color: inherit; text-decoration: underline;">jawad.shakeel2004@gmail.com</a>.';
+                }
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnContent;
+            }
         });
     }
 });

@@ -456,22 +456,23 @@
                         </a>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/mzepknpq" method="POST">
                     <div class="form-group">
-                        <input type="text" id="name" required placeholder=" ">
+                        <input type="text" id="name" name="name" required placeholder=" ">
                         <label for="name">Your Name</label>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" required placeholder=" ">
+                        <input type="email" id="email" name="email" required placeholder=" ">
                         <label for="email">Your Email</label>
                     </div>
                     <div class="form-group">
-                        <textarea id="message" rows="5" required placeholder=" "></textarea>
+                        <textarea id="message" name="message" rows="5" required placeholder=" "></textarea>
                         <label for="message">Your Message</label>
                     </div>
                     <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
                         <i class="fas fa-paper-plane"></i> Send Message
                     </button>
+                    <div id="formStatus" class="form-status"></div>
                 </form>
             </div>
         </div>
