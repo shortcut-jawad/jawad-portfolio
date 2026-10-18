@@ -6,7 +6,8 @@ Software Engineer at Octane, LAAM. LUMS BS CS '26, Minor in Mathematics.
 
 ## What's on it
 
-- **Selected work at LAAM:** Custom Size end to end, international SMS routing, finance and seller trust, the RBAC Permission Manager, in-stock price sorting, and linking customer identity by phone
+- **Selected work at LAAM:** Custom Size end to end, international SMS routing, Stripe chargeback auto-cancel, international phone login, high-value customer management, finance and seller trust, linking customer identity by phone, the RBAC Permission Manager, and search fixes
+- **On call:** production incidents and CX escalations I root-caused and fixed
 - **Experience:** LAAM (part-time, then full-time) and four semesters as a LUMS TA
 - **Skills, projects, education and a contact form** (the form submits to Formspree)
 

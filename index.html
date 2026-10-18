@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Muhammad Jawad — Software Engineer</title>
-  <meta name="description" content="Muhammad Jawad — Software Engineer at Octane, LAAM. I build commerce systems end to end: storefront, seller portal, finance tools and the services under them.">
+  <meta name="description" content="Muhammad Jawad — Software Engineer at Octane, LAAM. I build commerce systems end to end: storefront, seller portal, payments, finance tools and the services under them, and I'm on call when they break.">
   <meta property="og:title" content="Muhammad Jawad — Software Engineer">
   <meta property="og:description" content="Software Engineer at Octane, LAAM. Vue/Nuxt, Python, Go, PostgreSQL, GCP. LUMS CS '26.">
   <meta property="og:image" content="og.jpg">
@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -27,6 +27,7 @@
     <a href="#top" class="logo" aria-label="Muhammad Jawad, home">MJ<span>.</span></a>
     <nav class="nav__links" id="navLinks" aria-label="Primary">
       <a href="#work">Work</a>
+      <a href="#oncall">On call</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
@@ -90,8 +91,8 @@
 <section class="numbers" aria-label="Impact in numbers">
   <div class="wrap numbers__grid">
     <div class="stat"><b data-count="40" data-suffix="+">40+</b><span>tickets shipped to production at LAAM</span></div>
-    <div class="stat"><b data-count="200" data-suffix="+">200+</b><span>commits across 5 codebases</span></div>
-    <div class="stat"><b data-count="14" data-suffix="+">14+</b><span>silent production defects caught and fixed along the way</span></div>
+    <div class="stat"><b data-count="200" data-suffix="+">200+</b><span>commits across 6 codebases</span></div>
+    <div class="stat"><b data-count="20" data-suffix="+">20+</b><span>silent production defects caught and fixed along the way</span></div>
     <div class="stat"><b data-count="95" data-suffix="%+">95%+</b><span>diff coverage on every pull request</span></div>
   </div>
 </section>
@@ -102,18 +103,18 @@
     <header class="section__head">
       <p class="kicker">01 / Selected work at LAAM</p>
       <h2 class="section__title">Things I shipped that <span class="u-lime">people now rely on</span>.</h2>
-      <p class="section__intro">LAAM is a fashion marketplace, and Octane is the platform that runs brand storefronts on top of it. My work sits across the whole stack: Nuxt apps, Python microservices, a Go cart service and the React Native app.</p>
+      <p class="section__intro">LAAM is a fashion marketplace, and Octane is the platform that runs brand storefronts on top of it. My work sits across the whole stack: Nuxt apps, Python microservices, a Go cart and search layer, the React Native app and the infrastructure-as-code repo.</p>
     </header>
 
     <!-- Case study 1 -->
     <article class="case case--flagship reveal">
       <div class="case__meta">
-        <span class="chip chip--lime">Flagship · 9 tickets</span>
+        <span class="chip chip--lime">Flagship · 10 tickets · rolling out</span>
         <span class="case__num">A</span>
       </div>
       <div class="case__body">
         <h3 class="case__title">Custom Size, end to end</h3>
-        <p class="case__lede">Shoppers can now order a garment cut to their own measurements, and every one of those garments is traceable from checkout to the warehouse to the customer's door.</p>
+        <p class="case__lede">Shoppers order a garment cut to their own measurements, and every one of those garments is traceable from checkout to the warehouse to the customer's door. I took it from the PRD to the code: I broke the spec into tickets, mapped each part to its repo and files, and built every layer.</p>
         <div class="case__cols">
           <div>
             <h4>The problem</h4>
@@ -125,6 +126,7 @@
               <li>Measurement entry on the product page, driven by each category's size-chart columns</li>
               <li>Line-item attributes carried through the Go cart service and checkout onto the order</li>
               <li>A database-enforced, unique SKU and barcode for every individual garment</li>
+              <li>Each garment registered with the warehouse system before fulfilment, linked to the pickup it leaves on, and recalled to its seller if it comes back</li>
               <li>Admin availability settings behind a Statsig gate, plus a seller "offer Custom Size" option</li>
               <li>A seller measurements panel, a printable label, and audited corrections</li>
               <li>A "Needs your attention" homepage row and a listing tag for sellers</li>
@@ -142,14 +144,14 @@
         </ol>
 
         <div class="case__foot">
-          <p class="impact"><i class="fas fa-bolt"></i> Shipped across 9 tickets and 3 services, and caught and fixed <b>8 silent defects</b> on the way.</p>
+          <p class="impact"><i class="fas fa-bolt"></i> Built across 10 tickets and 4 services, including the warehouse integration, and caught and fixed <b>8 silent defects</b> on the way.</p>
           <ul class="tags"><li>Nuxt 3</li><li>Go · Gin</li><li>FastAPI</li><li>PostgreSQL</li><li>Alembic</li><li>Statsig</li><li>Vitest</li><li>Pytest</li></ul>
         </div>
       </div>
     </article>
 
     <div class="case-grid">
-      <!-- Case study 2 -->
+      <!-- Case study B -->
       <article class="case case--dark reveal">
         <div class="case__meta"><span class="chip chip--orange">Messaging infra</span><span class="case__num">B</span></div>
         <h3 class="case__title">International SMS routing</h3>
@@ -161,46 +163,83 @@
           <li>An Ed25519-verified delivery-status webhook</li>
           <li>E.164 normalisation across three SDKs</li>
           <li>Fixed 6 silent defects, including one that dropped <b>every locally-formatted Pakistani SMS</b></li>
+          <li>Rolled it out through infrastructure-as-code across staging and production, and turned on international WhatsApp OTP for LAAM</li>
+          <li>Live-tested delivery across 9 countries, which surfaced that <b>US and Canada were blocked</b> by unverified toll-free numbers, before any customer hit it</li>
         </ul>
-        <ul class="tags"><li>Python</li><li>FastAPI</li><li>Telnyx</li><li>Twilio</li><li>Unifonic</li><li>Pub/Sub</li><li>Pants</li><li>Docker</li></ul>
+        <ul class="tags"><li>Python</li><li>FastAPI</li><li>Telnyx</li><li>Twilio</li><li>Unifonic</li><li>Pub/Sub</li><li>Infra as code</li><li>Pants</li></ul>
       </article>
 
-      <!-- Case study 3 -->
+      <!-- Case study C -->
       <article class="case case--cream reveal">
-        <div class="case__meta"><span class="chip chip--ink">Finance & seller trust</span><span class="case__num">C</span></div>
-        <h3 class="case__title">Money that adds up</h3>
-        <p>Finance Ops couldn't search adjustments by order number, and nothing showed an item had already been adjusted, so double adjustments slipped through. I closed that gap on both the frontend and the quaestor service.</p>
+        <div class="case__meta"><span class="chip chip--ink">Payments · Stripe</span><span class="case__num">C</span></div>
+        <h3 class="case__title">Chargebacks that stop the bleeding</h3>
+        <p>When a card dispute came in, the items kept moving through fulfilment, so LAAM could ship a garment <b>and</b> lose the money. Now the payments service forwards each dispute's status and whether the full charge was pulled, and the orders service cancels whatever hasn't shipped.</p>
+        <ol class="flow flow--mini">
+          <li><b>Stripe</b></li><li><b>Payments</b></li><li><b>Pub/Sub</b></li><li><b>Orders</b></li><li><b>Cancel</b></li>
+        </ol>
         <ul class="ticks">
-          <li>Order-number search and existing-adjustment visibility in Finance Ops</li>
+          <li>Unfulfilled items are cancelled with no refund. Anything already claimed by the warehouse gets a <b>Chargeback-Review</b> tag instead of being cancelled blindly</li>
+          <li>The cancel is idempotent and retries if the warehouse system fails, so redelivered webhooks are safe</li>
+          <li>Tested inquiry, partial, full and redelivered disputes on staging</li>
+          <li>A chargeback tag on the seller order page, and an admin-only one on the v2 order page</li>
+        </ul>
+        <ul class="tags"><li>Stripe</li><li>FastAPI</li><li>Pub/Sub</li><li>PostgreSQL</li><li>Nuxt 3</li></ul>
+      </article>
+
+      <!-- Case study D -->
+      <article class="case case--lime reveal">
+        <div class="case__meta"><span class="chip chip--ink">Auth · Growth</span><span class="case__num">D</span></div>
+        <h3 class="case__title">Log in from anywhere</h3>
+        <p>laam.com only accepted Pakistani phone numbers. I added international phone login with the country pre-selected from the visitor's IP. Non-PK numbers get their OTP over WhatsApp, which matches the app.</p>
+        <ul class="ticks">
+          <li>Fixed <b>29 countries</b> whose composite dial codes rejected every valid number</li>
+          <li>Wrote the SQL for the international login and sign-up funnel</li>
+        </ul>
+        <ul class="tags"><li>Nuxt 3</li><li>VeeValidate</li><li>WhatsApp</li><li>SQL</li></ul>
+      </article>
+
+      <!-- Case study E -->
+      <article class="case case--dark reveal">
+        <div class="case__meta"><span class="chip chip--lime">Customers · Analytics</span><span class="case__num">E</span></div>
+        <h3 class="case__title">High-value customer management</h3>
+        <p>I built the seller-app portal for LAAM's high-value customers. Staff can add customers by email or phone under a new <code>hvc:create</code> permission. The page has summary cards, Net Sales computed by the same rules as Analytics, date presets, CSV export and remove. When the business team questioned the totals, I reconciled them against Metabase.</p>
+        <ul class="tags"><li>Vue 3</li><li>FastAPI</li><li>RBAC</li><li>PostgreSQL</li><li>CSV</li></ul>
+      </article>
+
+      <!-- Case study F -->
+      <article class="case case--cream reveal">
+        <div class="case__meta"><span class="chip chip--ink">Finance & seller trust</span><span class="case__num">F</span></div>
+        <h3 class="case__title">Money that adds up</h3>
+        <p>Finance Ops couldn't search adjustments by order number, and nothing showed that an item had already been adjusted, so double adjustments slipped through. I closed that gap on both the frontend and the quaestor service.</p>
+        <ul class="ticks">
           <li>Removed an unreliable tax-status indicator that misled sellers on their ledger</li>
           <li>Added TCS and Leopards as bring-your-own-courier options, and fixed a bug <b>billing shipments to the company's own courier account</b></li>
-          <li>Surfaced Stripe chargebacks on the admin order detail page</li>
         </ul>
         <ul class="tags"><li>Nuxt 3</li><li>TanStack Query</li><li>FastAPI</li><li>SQLAlchemy</li><li>Alembic</li></ul>
       </article>
 
-      <!-- Case study 4 -->
-      <article class="case case--lime reveal">
-        <div class="case__meta"><span class="chip chip--ink">Access control</span><span class="case__num">D</span></div>
-        <h3 class="case__title">Permission Manager (RBAC)</h3>
-        <p>I built an admin screen for managing permission groups and roles, including which roles sellers are allowed to grant. The backend side added the RBAC permission itself, a migration that backfills it for existing roles, and the gateway route to serve it.</p>
-        <ul class="tags"><li>Vue 3</li><li>Pinia</li><li>FastAPI</li><li>Alembic</li><li>Apache APISIX</li></ul>
-      </article>
-
-      <!-- Case study 5 -->
-      <article class="case case--dark reveal">
-        <div class="case__meta"><span class="chip chip--lime">Search</span><span class="case__num">E</span></div>
-        <h3 class="case__title">Prices shoppers can actually buy at</h3>
-        <p>Price sorting used variants that were already sold out, so "lowest price" wasn't always the lowest price anyone could buy. I re-priced products on their in-stock variants in Elasticsearch, wrote the backfill, and kept sold-out items in price order at the end of the results in the Go service.</p>
-        <ul class="tags"><li>Elasticsearch</li><li>Python</li><li>Go</li><li>Backfills</li></ul>
-      </article>
-
-      <!-- Case study 6 -->
+      <!-- Case study G -->
       <article class="case case--outline reveal">
-        <div class="case__meta"><span class="chip chip--orange">Customer identity</span><span class="case__num">F</span></div>
+        <div class="case__meta"><span class="chip chip--orange">Customer identity</span><span class="case__num">G</span></div>
         <h3 class="case__title">No orphaned orders</h3>
         <p>Orders placed without an email never showed up on the customer's profile. I linked them by a normalised phone number, picked the right address per order, failed closed when a phone number wasn't usable, and added a phone-only lookup for guest orders.</p>
         <ul class="tags"><li>Python</li><li>SQLAlchemy</li><li>PostgreSQL</li><li>Pytest</li></ul>
+      </article>
+
+      <!-- Case study H -->
+      <article class="case case--lime reveal">
+        <div class="case__meta"><span class="chip chip--ink">Access control</span><span class="case__num">H</span></div>
+        <h3 class="case__title">Permission Manager (RBAC)</h3>
+        <p>I built an admin screen for managing permission groups and roles, including which roles sellers are allowed to grant. On the backend I added the RBAC permission, a migration that backfills it for existing roles, and the gateway route that serves it. I also wrote the product doc and sequence diagrams for sign-off.</p>
+        <ul class="tags"><li>Vue 3</li><li>Pinia</li><li>FastAPI</li><li>Alembic</li><li>Apache APISIX</li></ul>
+      </article>
+
+      <!-- Case study I -->
+      <article class="case case--dark reveal">
+        <div class="case__meta"><span class="chip chip--lime">Search</span><span class="case__num">I</span></div>
+        <h3 class="case__title">Search you can trust</h3>
+        <p>Price sorting counted variants that were already sold out, so "lowest price" wasn't always a price anyone could buy at. I traced it to the Elasticsearch pricing, and in the Go search service I kept sold-out items in price order at the end of the results.</p>
+        <ul class="tags"><li>Go</li><li>Elasticsearch</li><li>Nuxt 3</li></ul>
       </article>
     </div>
 
@@ -210,20 +249,83 @@
       <ul class="more__list">
         <li><b>Coupons & promotions</b><span>Expired-coupon messaging at checkout, product coupon ledgers, price ranges, and one coupon form shared by create and edit.</span></li>
         <li><b>Warehouse allocation</b><span>Stock allocation re-evaluated when an order changes, channel rules validated when they're written, and tag rules matched against both vocabularies.</span></li>
-        <li><b>Storefront polish</b><span>OTP errors that say why they failed, the express-shipping estimate restored on Octane product pages, and nav alignment for brand stores.</span></li>
-        <li><b>Returns wording</b><span>Clearer international-return copy on the web storefront and in the React Native app.</span></li>
+        <li><b>Storefront polish</b><span>The express-shipping estimate restored on Octane product pages, nav alignment for brand stores, and Sentry no longer raising an alarm whenever an ad blocker stops gtag.js.</span></li>
+        <li><b>Returns, reopened</b><span>Support can reopen a closed return request, and there's a new Reopened Requests tab. I caught the missing gateway route before release, which would otherwise have shipped as a 404. International returns are now labelled as issue reports on web, in the app and in email.</span></li>
+        <li><b>Bulk Ready to Ship</b><span>Sellers can switch Ready to Ship on or off for many products at once, behind a permission check, with sell-ahead cleared. A staging run caught a form-schema bug that the mocked unit tests had hidden.</span></li>
         <li><b>Platform hygiene</b><span>Security headers, a CMS cache-key fix, a fix for video-player stalls, and a Docker image-packaging check that runs under Pants.</span></li>
         <li><b>Seller ledger</b><span>A cleaner Payout view for sellers, with the misleading status removed.</span></li>
+        <li><b>Infrastructure &amp; releases</b><span>Config and secrets for Notify and Custom Size in the infrastructure-as-code repo, branch deploys to staging, and post-deploy checks against production logs.</span></li>
+        <li><b>Code review</b><span>I review teammates' search and CI pull requests. I rewrote the original Twilio integration onto Telnyx, took over and finished a teammate's HVC pull request, and traced a CI break on main to its source.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ON CALL ============ -->
+<section class="section section--ink2" id="oncall">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="kicker">02 / On call</p>
+      <h2 class="section__title">When production <span class="u-orange">breaks</span>, I go find out why.</h2>
+      <p class="section__intro">Not all of my work arrives as a feature ticket. Some of it is an incident, a customer complaint, or a number that doesn't add up. I start with production logs, BigQuery and read-only SQL, find the actual cause, and fix that.</p>
+    </header>
+
+    <ol class="incidents">
+      <li class="incident reveal">
+        <div class="incident__head"><span class="sev sev--red">Outage</span><span class="incident__area">laam.com · product pages</span></div>
+        <h3>18 minutes of 500s on every product page</h3>
+        <p><b>Found:</b> In the Cloud Run logs, about 10.9k failed requests traced back to a framework upgrade. During server-side rendering of the structured data, a store was being used before any store was active.</p>
+        <p><b>Did:</b> I identified the bad revision, confirmed the rollback, and flagged that the bug was still on main so it wouldn't ship again.</p>
+      </li>
+      <li class="incident reveal">
+        <div class="incident__head"><span class="sev sev--orange">Money</span><span class="incident__area">rewards · returns</span></div>
+        <h3>Reward points that never came back</h3>
+        <p><b>Found:</b> There were two separate bugs. An SMS fallback crashed on orders with no email, which left 38 of 413 units stuck. A Pub/Sub message was also published before its transaction committed, which silently missed 119 of 2,424 units.</p>
+        <p><b>Did:</b> I fixed both and added an end-to-end test that reproduces the production failure.</p>
+      </li>
+      <li class="incident reveal">
+        <div class="incident__head"><span class="sev sev--orange">Identity</span><span class="incident__area">sign-up · account merge</span></div>
+        <h3>A customer's rewards vanished at sign-up</h3>
+        <p><b>Found:</b> BigQuery and the identity service's logs showed that account merge was claiming orders that belonged to <i>other live accounts</i>, not just guest orders.</p>
+        <p><b>Did:</b> Sign-up now claims only guest orders, and I hardened the merge-by-OTP flow on both the frontend and the backend.</p>
+      </li>
+      <li class="incident reveal">
+        <div class="incident__head"><span class="sev sev--orange">Money</span><span class="incident__area">returns · refunds</span></div>
+        <h3>Returns stuck in "Accepted"</h3>
+        <p><b>Found:</b> When another item in the same return had already been refunded, accepting the last item hit a refund error after the status was saved. After that, every retry failed.</p>
+        <p><b>Did:</b> I wrote up the bug and made Accept atomic, so it can no longer double-refund.</p>
+      </li>
+      <li class="incident reveal">
+        <div class="incident__head"><span class="sev sev--lime">Search</span><span class="incident__area">search · Go + Nuxt</span></div>
+        <h3>Brand ratings that didn't match</h3>
+        <p><b>Found:</b> Search suggestions showed a brand rating that hadn't been resolved, so it differed from the rating on the brand's own page.</p>
+        <p><b>Did:</b> I fixed it in the Go search service and the storefront, shipped to staging and then production, and verified it on all three storefronts.</p>
+      </li>
+      <li class="incident reveal">
+        <div class="incident__head"><span class="sev sev--lime">Data</span><span class="incident__area">catalogue · pricing</span></div>
+        <h3>Products priced at Rs 0</h3>
+        <p><b>Found:</b> With production SQL I traced about 90 sizes zeroed out by a 25% sale, plus 134 zero-priced active sizes across brands.</p>
+        <p><b>Did:</b> I confirmed none of them could actually be bought, because all were out of stock, so the business could size the risk accurately.</p>
+      </li>
+    </ol>
+
+    <div class="cx reveal">
+      <p class="cx__label"><span class="dot"></span> Also on the CX queue</p>
+      <ul class="cx__list">
+        <li><b>"Invalid OTP"</b>SendGrid events showed the code was delivered and opened, so the customer was typing an old code. Not a system fault.</li>
+        <li><b>Wishlist won't reach the bag</b>It wouldn't reproduce and the logs were clean, so I diagnosed a stale session and gave the customer the steps to fix it.</li>
+        <li><b>Warehouse rejected a seller's stock</b>The article was inactive at inbound, so the rejection was correct. I advised re-inbounding.</li>
+        <li><b>1,106 stale returns</b>I built the CX export broken down by courier status: 1,006 never picked up, 70 at the warehouse, 25 cancelled.</li>
       </ul>
     </div>
   </div>
 </section>
 
 <!-- ============ EXPERIENCE ============ -->
-<section class="section section--ink2" id="experience">
+<section class="section" id="experience">
   <div class="wrap">
     <header class="section__head">
-      <p class="kicker">02 / Experience</p>
+      <p class="kicker">03 / Experience</p>
       <h2 class="section__title">Where I've worked.</h2>
     </header>
 
@@ -237,11 +339,13 @@
         <h3 class="job__title">Software Engineer <span>@ Octane, LAAM</span></h3>
         <p class="job__desc">I work across a microservices e-commerce platform deployed on Google Cloud: the Nuxt storefront and seller, finance and admin apps, FastAPI services, a Go cart service and the React Native app. I own features from the PRD to production, and I keep each pull request scoped to one service and backed by tests.</p>
         <ul class="ticks ticks--cols">
-          <li>Delivered the Custom Size epic end to end, across the storefront, cart, orders and seller app</li>
-          <li>Rebuilt SMS provider routing and retired Twilio across both services</li>
+          <li>Built the Custom Size epic end to end, from the PRD to the storefront, cart, orders, warehouse and seller app</li>
+          <li>Rebuilt SMS provider routing, retired Twilio, and rolled out Telnyx through infrastructure as code</li>
+          <li>Made Stripe disputes auto-cancel unshipped items, so chargebacks stop costing goods as well as money</li>
+          <li>Opened laam.com to international phone login, with OTP over WhatsApp</li>
+          <li>Built the high-value-customer portal and the RBAC Permission Manager</li>
           <li>Closed a double-adjustment gap in Finance Ops and fixed a courier billing bug</li>
-          <li>Built the RBAC Permission Manager, UI through migration</li>
-          <li>Made price sort reflect in-stock variants in Elasticsearch</li>
+          <li>Took incidents and CX escalations: root-caused an outage, lost reward points, a bad account merge and stuck refunds</li>
           <li>Deployed through Cloud Build, Cloud Deploy and Cloud Run, with CI on GitHub Actions</li>
         </ul>
       </article>
@@ -256,14 +360,14 @@
 </section>
 
 <!-- ============ HOW I WORK ============ -->
-<section class="section" id="principles">
+<section class="section section--ink2" id="principles">
   <div class="wrap">
     <header class="section__head">
-      <p class="kicker">03 / How I work</p>
+      <p class="kicker">04 / How I work</p>
       <h2 class="section__title">Boring on purpose, <span class="u-orange">careful by default</span>.</h2>
     </header>
     <div class="principles">
-      <div class="principle reveal"><span class="principle__n">01</span><h3>Root cause first</h3><p>I find out why something broke before I touch it. That habit is how the silent defects surfaced: a courier bill going to the wrong account, and SMS messages vanishing for local number formats.</p></div>
+      <div class="principle reveal"><span class="principle__n">01</span><h3>Root cause first</h3><p>I find out why something broke before I touch it. That habit is how the silent defects surfaced: a courier bill going to the wrong account, SMS messages vanishing for local number formats, and a Pub/Sub message racing its own transaction.</p></div>
       <div class="principle reveal"><span class="principle__n">02</span><h3>Tests are the spec</h3><p>Every pull request clears a 95%+ diff-coverage gate. I use Pytest, Vitest, Jest and Testcontainers, and mutation-test with Stryker.</p></div>
       <div class="principle reveal"><span class="principle__n">03</span><h3>Small, scoped PRs</h3><p>One service per pull request, migrations that are safe to backfill, and rollouts behind feature flags.</p></div>
       <div class="principle reveal"><span class="principle__n">04</span><h3>PRD to production</h3><p>I turn a product spec into tickets, map each one to the right repo and file, and then ship it all the way through.</p></div>
@@ -275,17 +379,17 @@
 <section class="section section--cream" id="skills">
   <div class="wrap">
     <header class="section__head">
-      <p class="kicker kicker--ink">04 / Skills</p>
+      <p class="kicker kicker--ink">05 / Skills</p>
       <h2 class="section__title">The toolbox.</h2>
     </header>
     <div class="skills">
       <div class="skill reveal"><h3>Languages</h3><ul><li>Python</li><li>TypeScript</li><li>JavaScript</li><li>Go</li><li>C++</li><li>Haskell</li><li>SQL</li><li>HTML</li><li>CSS</li></ul></div>
       <div class="skill reveal"><h3>Frontend & Mobile</h3><ul><li>Vue 3</li><li>Nuxt 3</li><li>React.js</li><li>Next.js</li><li>React Native</li><li>Pinia</li><li>TanStack Query / Table</li><li>VeeValidate</li><li>Zod</li><li>TypeBox</li><li>Tailwind CSS</li><li>Bootstrap</li><li>Radix Vue / Reka UI</li><li>Axios</li><li>hls.js</li></ul></div>
-      <div class="skill reveal"><h3>Backend & DB</h3><ul><li>FastAPI (Pydantic)</li><li>Django</li><li>Flask</li><li>Node.js</li><li>Go (Gin)</li><li>SQLAlchemy / Alembic</li><li>Temporal</li><li>REST APIs</li><li>WebRTC</li><li>Multi-threading</li><li>PostgreSQL</li><li>MongoDB</li><li>Supabase</li><li>Elasticsearch</li><li>Redis</li><li>Apache APISIX</li></ul></div>
-      <div class="skill reveal"><h3>DevOps & Cloud</h3><ul><li>GCP: Cloud Run, Cloud Deploy, Artifact Registry, Pub/Sub</li><li>Azure</li><li>Vercel</li><li>Render</li><li>Railway</li><li>Docker / Compose</li><li>Kubernetes</li><li>CI/CD (GitHub Actions)</li><li>Git / GitHub</li><li>Linux</li><li>Pants</li><li>uv</li><li>pnpm</li><li>SonarQube</li></ul></div>
-      <div class="skill reveal"><h3>Integrations</h3><ul><li>Statsig</li><li>Twilio</li><li>Telnyx</li><li>Unifonic</li><li>SendGrid</li><li>Stripe</li><li>TCS</li><li>Leopards</li><li>Sentry</li></ul></div>
-      <div class="skill reveal"><h3>Testing & Quality</h3><ul><li>Pytest</li><li>Vitest</li><li>Jest</li><li>Stryker</li><li>Testcontainers</li><li>Ruff · Mypy · ESLint · golangci-lint</li><li>Husky · commitlint</li></ul></div>
-      <div class="skill skill--wide reveal"><h3>Software Dev</h3><ul><li>System Design</li><li>Algorithm Design</li><li>API Development</li><li>Microservices</li><li>Event-Driven Architecture</li><li>Monorepos</li><li>DB Schema Design & Migrations</li><li>RBAC</li><li>Feature Flagging</li><li>Provider Routing / Registry Pattern</li><li>Audit Trails</li><li>App Security (JWT, Webhook Signatures)</li><li>Debugging</li><li>PRD-to-Implementation</li><li>Agile / SDLC</li></ul></div>
+      <div class="skill reveal"><h3>Backend & DB</h3><ul><li>FastAPI (Pydantic)</li><li>Django</li><li>Flask</li><li>Node.js</li><li>Go (Gin)</li><li>SQLAlchemy / Alembic</li><li>Temporal</li><li>REST APIs</li><li>WebRTC</li><li>Multi-threading</li><li>PostgreSQL</li><li>MongoDB</li><li>Supabase</li><li>Elasticsearch</li><li>Redis</li><li>BigQuery</li><li>Apache APISIX</li></ul></div>
+      <div class="skill reveal"><h3>DevOps & Cloud</h3><ul><li>GCP: Cloud Run, Cloud Build, Cloud Deploy, Artifact Registry, Pub/Sub, Cloud Scheduler, Secret Manager, Cloud Logging</li><li>Terraform / Infra as Code</li><li>Azure</li><li>Vercel</li><li>Render</li><li>Railway</li><li>Docker / Compose</li><li>Kubernetes</li><li>CI/CD (GitHub Actions)</li><li>Git / GitHub</li><li>Linux</li><li>Pants</li><li>uv</li><li>pnpm</li><li>SonarQube</li></ul></div>
+      <div class="skill reveal"><h3>Integrations</h3><ul><li>Statsig</li><li>Twilio</li><li>Telnyx</li><li>Unifonic</li><li>SendGrid</li><li>Stripe</li><li>WhatsApp OTP</li><li>TCS</li><li>Leopards</li><li>Sentry</li><li>Metabase</li><li>Google Tag (gtag.js)</li></ul></div>
+      <div class="skill reveal"><h3>Testing & Quality</h3><ul><li>Pytest</li><li>Vitest</li><li>Jest</li><li>Stryker</li><li>Testcontainers</li><li>Ruff · Mypy · ESLint · golangci-lint</li><li>Husky · commitlint</li><li>gitleaks</li><li>Diff-coverage gates</li></ul></div>
+      <div class="skill skill--wide reveal"><h3>Software Dev</h3><ul><li>System Design</li><li>Algorithm Design</li><li>API Development</li><li>Microservices</li><li>Event-Driven Architecture</li><li>Monorepos</li><li>DB Schema Design & Migrations</li><li>RBAC</li><li>Feature Flagging</li><li>Provider Routing / Registry Pattern</li><li>Audit Trails</li><li>App Security (JWT, Webhook Signatures)</li><li>Webhooks</li><li>Idempotency &amp; Retries</li><li>Data Backfills</li><li>Debugging</li><li>Incident Response / On-call</li><li>Root-Cause Analysis</li><li>Log Analysis &amp; Observability</li><li>Technical Docs &amp; Sequence Diagrams</li><li>PRD-to-Implementation</li><li>Agile / SDLC</li></ul></div>
     </div>
   </div>
 </section>
@@ -294,7 +398,7 @@
 <section class="section" id="projects">
   <div class="wrap">
     <header class="section__head">
-      <p class="kicker">05 / Projects</p>
+      <p class="kicker">06 / Projects</p>
       <h2 class="section__title">Built outside the day job.</h2>
     </header>
 
@@ -354,7 +458,7 @@
 <section class="section section--ink2" id="about">
   <div class="wrap about">
     <div class="about__copy reveal">
-      <p class="kicker">06 / About</p>
+      <p class="kicker">07 / About</p>
       <h2 class="section__title">Maths brain, <span class="u-lime">product hands</span>.</h2>
       <p>I studied Computer Science at LUMS with a Minor in Mathematics, and I spent four semesters teaching calculus, linear algebra and probability to about 180 students at a time. I started at LAAM part-time in my final year and moved to full-time in June 2026.</p>
       <p>What I enjoy most is taking a feature nobody has fully mapped yet, finding every place it touches, and getting it to production without surprises.</p>
@@ -375,7 +479,7 @@
 <section class="section contact" id="contact">
   <div class="wrap contact__grid">
     <div class="contact__copy">
-      <p class="kicker">07 / Contact</p>
+      <p class="kicker">08 / Contact</p>
       <h2 class="contact__title">Let's build<br>something <span class="u-lime">real</span>.</h2>
       <p>I'm open to software engineering roles and interesting problems. The fastest way to reach me is email.</p>
       <ul class="contact__links">
